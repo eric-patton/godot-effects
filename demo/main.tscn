@@ -1,0 +1,87 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://demo/main.gd" id="1"]
+[ext_resource type="Script" path="res://demo/orbit_camera.gd" id="2"]
+[ext_resource type="Shader" path="res://demo/shaders/night_sky.gdshader" id="3"]
+[ext_resource type="PackedScene" path="res://fire/pillar_of_fire.tscn" id="4"]
+[ext_resource type="Texture2D" path="res://assets/textures/rocky_terrain_02_diff_2k.jpg" id="5"]
+[ext_resource type="Texture2D" path="res://assets/textures/rocky_terrain_02_nor_gl_2k.jpg" id="6"]
+[ext_resource type="Texture2D" path="res://assets/textures/rocky_terrain_02_rough_2k.jpg" id="7"]
+
+[sub_resource type="ShaderMaterial" id="sky_mat"]
+shader = ExtResource("3")
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 2
+ambient_light_color = Color(0.16, 0.2, 0.32, 1)
+ambient_light_energy = 0.65
+tonemap_mode = 4
+glow_enabled = true
+glow_intensity = 0.7
+glow_strength = 1.0
+glow_bloom = 0.04
+glow_blend_mode = 1
+glow_hdr_threshold = 1.3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.007
+volumetric_fog_albedo = Color(0.68, 0.72, 0.82, 1)
+volumetric_fog_length = 160.0
+volumetric_fog_detail_spread = 2.5
+volumetric_fog_ambient_inject = 0.1
+volumetric_fog_anisotropy = 0.4
+
+[sub_resource type="PlaneMesh" id="ground_mesh"]
+size = Vector2(300, 300)
+
+[sub_resource type="StandardMaterial3D" id="ground_mat"]
+albedo_color = Color(0.62, 0.55, 0.44, 1)
+albedo_texture = ExtResource("5")
+roughness_texture = ExtResource("7")
+normal_enabled = true
+normal_texture = ExtResource("6")
+uv1_triplanar = true
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="rock_mat"]
+albedo_color = Color(0.6, 0.58, 0.56, 1)
+albedo_texture = ExtResource("5")
+roughness_texture = ExtResource("7")
+normal_enabled = true
+normal_texture = ExtResource("6")
+uv1_triplanar = true
+uv1_scale = Vector3(0.35, 0.35, 0.35)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1")
+rock_material = SubResource("rock_mat")
+ground_material = SubResource("ground_mat")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866, -0.3079, 0.394, 0, 0.788, 0.6157, -0.5, 0.5332, -0.6824, 0, 30, 0)
+light_color = Color(0.58, 0.67, 0.92, 1)
+light_energy = 0.24
+shadow_enabled = true
+directional_shadow_max_distance = 120.0
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("ground_mesh")
+cast_shadow = 0
+material_override = SubResource("ground_mat")
+
+[node name="PillarOfFire" parent="." instance=ExtResource("4")]
+
+[node name="OrbitCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 48)
+fov = 55.0
+far = 500.0
+script = ExtResource("2")
+target = Vector3(0, 13, 0)
+distance = 54.0

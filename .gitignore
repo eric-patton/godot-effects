@@ -1,0 +1,27 @@
+# Godot 4+
+.godot/
+/android/
+/.import/
+
+# .NET / Mono
+.mono/
+/bin/
+/obj/
+*.user
+mono_crash.*.json
+
+# Exported builds
+/build/
+*.exe
+*.pck
+
+# Session scratch
+run_log.txt
+run_*.log
+
+# Raw milestone captures. The curated, cropped set lives in docs/images/.
+/screenshots/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
