@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://red_sea/red_sea.gd" id="1_redsea"]
+
+; Everything visual is built in code: red_sea.gd reuses any node it finds by name and
+; creates the rest, so this scene only needs the root. The original build authored a
+; Seabed mesh, a Water preview mesh and a Decorations node full of rock props here;
+; the rocks were third-party and are not redistributed with this pack.
+
+[node name="RedSea" type="Node3D"]
+script = ExtResource("1_redsea")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 50, 0)
+light_color = Color(1, 0.94, 0.82, 1)
+light_energy = 1.2
+shadow_enabled = true

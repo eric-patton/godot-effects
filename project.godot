@@ -27,3 +27,21 @@ project/assembly_name="GodotEffects"
 
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
 anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/screen_space_aa=1
+
+[shader_globals]
+
+; Published by the GodotOceanWaves FFT compute cascades (addons/ocean_waves) and read by
+; red_sea/shaders/red_sea_water.gdshader.
+displacements={
+"type": "sampler2DArray",
+"value": ""
+}
+normals={
+"type": "sampler2DArray",
+"value": ""
+}
+num_cascades={
+"type": "uint",
+"value": 0
+}
